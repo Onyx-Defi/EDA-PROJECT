@@ -1,0 +1,95 @@
+EDA PROJECT: Loan Prediction Dataset
+
+Question 1: Load and Merge Data
+
+Load train.csv and test.csv into pandas DataFrames. Merge them into a single DataFrame called loan_data using an appropriate join method.
+
+Validation requirements:
+
+· Print the shape of each file before merging
+· After merging, verify that the total row count equals 981 (614 + 367)
+· Use indicator=True and report how many rows came from "left_only", "right_only", and "both"
+· Display the first 2 rows and last 2 rows of the merged DataFrame
+
+---
+
+Question 2: Variable Classification
+
+Create a classification table (using Markdown or a DataFrame) that lists every column in the merged dataset with the following columns:
+
+· Variable name
+· Scale type (Nominal, Ordinal, Interval, or Ratio)
+· Data role (Identifier, Feature, or Target)
+· Brief justification for your classification
+
+---
+
+Question 3: Normality Testing
+
+For every numerical column in the dataset, perform the following:
+
+a) Compute: mean, median, standard deviation, skewness, and IQR
+
+b) Run the Shapiro-Wilk test and report the W-statistic and p-value (use p < 0.05 as threshold for non-normality)
+
+c) Generate a Q-Q plot for each variable
+
+d) For any variable that fails normality (p < 0.05), apply a log transformation log(x + 1) and re-run the Shapiro-Wilk test
+
+Deliverable: Create a summary DataFrame with columns: Variable, N, Mean, Median, Skewness, Shapiro-Wilk p, Normal? (Y/N), Improved by Log? (Y/N/NA)
+
+---
+
+Question 4: Categorical Distribution
+
+For every categorical variable in the dataset, calculate:
+
+· Frequency count of each unique value
+· Percentage distribution
+
+Then answer:
+a) What is the loan approval rate (proportion of Y in Loan_Status) within the training data only (rows originally from train.csv)?
+
+b) Identify any categorical variable where one category represents more than 80% of the observations
+
+---
+
+Question 5: Correlation Analysis (Justified)
+
+Analyze the relationships for each of the five pairs listed below. For each pair, explicitly state (in a table):
+
+| Pair | Variable X (Scale) | Variable Y (Scale) | Normality OK? | Chosen Coefficient | Value | Interpretation (1 sentence) |
+
+Pairs to analyze:
+
+1. ApplicantIncome vs LoanAmount
+2. Credit_History vs Loan_Status
+3. Education vs Loan_Status
+4. ApplicantIncome vs CoapplicantIncome
+5. Property_Area vs Loan_Status
+
+Coefficient options: Pearson (normal, continuous vs continuous), Spearman (non-normal or ordinal), Point-Biserial (binary vs continuous), Cramér's V (categorical vs categorical)
+
+---
+
+Question 6: Visualizations
+
+Generate exactly the following three plots:
+
+a) Boxplot: Log-transformed ApplicantIncome grouped by Loan_Status. Add title "Log Income Distribution by Loan Status"
+
+b) Correlation Heatmap: Create a heatmap that includes only the variables from Question 5, using the appropriate correlation coefficients you selected (not default .corr())
+
+c) Stacked Bar Chart: Property_Area vs Loan_Status showing proportions, not raw counts (normalized to 100% per property area)
+
+---
+
+Question 7: Business Summary
+
+Write a 3-paragraph summary addressed to a loan manager (non-technical audience):
+
+Paragraph 1 (Data Quality): State the final number of loan applications analyzed. Mention the source files, the merge verification result, and note any columns with missing values (report counts for at least 3 columns).
+
+Paragraph 2 (Statistical Reality): Explain what "skewed data" means using ApplicantIncome as an example. Describe why using the median is more reliable than the mean for this type of data, and state which correlation method was used for income-related relationships (Spearman) and why Pearson would have been wrong.
+
+Paragraph 3 (Actionable Finding): Based on your results from Question 5, state which single factor (Credit_History, Education, Property_Area, or income) is the strongest predictor of loan approval. Report the coefficient value and explain what it means for loan policy (e.g., "applicants with X are Y% more likely to be approved").
